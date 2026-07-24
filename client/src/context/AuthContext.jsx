@@ -33,6 +33,8 @@ export function AuthProvider({ children }) {
   async function login(credentials) {
     const data = await loginUser(credentials);
 
+    localStorage.setItem("token", data.token);
+
     setUser(data.user);
 
     return data;
@@ -41,12 +43,16 @@ export function AuthProvider({ children }) {
   async function register(userData) {
     const data = await registerUser(userData);
 
+    localStorage.setItem("token", data.token);
+
     setUser(data.user);
 
     return data;
   }
 
   async function logout() {
+    localStorage.removeItem("token");
+
     await logoutUser();
 
     setUser(null);

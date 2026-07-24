@@ -51,8 +51,6 @@ export const register = asyncHandler(async (req, res) => {
 
   sendAuthCookie(res, token);
 
- sendAuthCookie(res, token);
-
   res.status(201).json({
     success: true,
     message: "Your ApplyFlow account was created successfully.",
@@ -107,6 +105,7 @@ export const login = asyncHandler(async (req, res) => {
   res.status(200).json({
     success: true,
     message: "You have logged in successfully.",
+    token,
     user,
   });
 });
@@ -114,11 +113,9 @@ export const login = asyncHandler(async (req, res) => {
 export const logout = asyncHandler(async (req, res) => {
   clearAuthCookie(res);
 
-    res.status(200).json({
+  res.status(200).json({
     success: true,
-    message: "You have logged in successfully.",
-    token,
-    user,
+    message: "You have logged out successfully.",
   });
 });
 
