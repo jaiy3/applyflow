@@ -1,20 +1,18 @@
 import prisma from "../utils/prisma.js";
-import {
-  getAuthCookieName,
-  verifyAuthToken,
-} from "../utils/authToken.js";
+import { verifyAuthToken } from "../utils/authToken.js";
 
 const protect = async (req, res, next) => {
   try {
-    const cookieName = getAuthCookieName();
-    const token = req.cookies[cookieName];
+    const authHeader = req.headers.authorization;
 
-    if (!token) {
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res.status(401).json({
         success: false,
         message: "You must be logged in to access this resource.",
       });
     }
+
+    const token = authHeader.split(" ")[1];
 
     const decodedToken = verifyAuthToken(token);
 
