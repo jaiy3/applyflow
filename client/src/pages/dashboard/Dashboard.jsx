@@ -53,22 +53,24 @@ export default function Dashboard() {
       )}
 
       {loading ? (
-      <p>Loading dashboard...</p>
+          <p>Loading dashboard...</p>
+        ) : dashboardData ? (
+          <>
+            <StatsGrid statistics={dashboardData.statistics} />
+
+            <div className="dashboard-columns">
+              <RecentApplications
+                applications={dashboardData.recentApplications}
+              />
+
+              <UpcomingDeadlines
+                deadlines={dashboardData.upcomingDeadlines}
+              />
+            </div>
+          </>
         ) : (
-      <>
-    <StatsGrid statistics={dashboardData.statistics} />
-
-    <div className="dashboard-columns">
-      <RecentApplications
-        applications={dashboardData.recentApplications}
-      />
-
-      <UpcomingDeadlines
-        deadlines={dashboardData.upcomingDeadlines}
-      />
-    </div>
-  </>
-)}
+          <p>Unable to load dashboard.</p>
+        )}
     </DashboardLayout>
   );
 }

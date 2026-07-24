@@ -9,6 +9,7 @@ import applicationRoutes from "./routes/applicationRoutes.js";
 import healthRoutes from "./routes/healthRoutes.js";
 
 const app = express();
+app.set("trust proxy", 1);
 
 app.use(helmet());
 
