@@ -123,11 +123,13 @@ useEffect(() => {
         <>
             <p>{applications.length} application(s) found.</p>
 
+          <div className="table-card">
             <ApplicationsTable
               applications={applications}
               onEdit={handleEdit}
               onDelete={handleDelete}
             />
+            </div>
         </>
       )}
     </DashboardLayout>
