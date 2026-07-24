@@ -1,0 +1,25 @@
+# Dependencies
+node_modules
+
+# Environment variables
+.env
+
+# Logs
+*.log
+
+# macOS
+.DS_Store
+
+# Build folders
+dist
+build
+
+# Vite
+client/dist
+
+# Coverage
+coverage
+
+# Prisma
+server/prisma/dev.db
+server/prisma/dev.db-journal

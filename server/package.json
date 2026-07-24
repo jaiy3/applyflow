@@ -1,0 +1,35 @@
+{
+  "name": "applyflow-server",
+  "version": "1.0.0",
+  "description": "Backend API for the ApplyFlow job application tracker",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js"
+  },
+  "keywords": [
+    "job-tracker",
+    "express",
+    "postgresql",
+    "react"
+  ],
+  "author": "Jaiye Adeboye",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^6.18.0",
+    "bcryptjs": "^3.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.0.0",
+    "express": "^5.0.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "morgan": "^1.10.0",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0",
+    "prisma": "^6.18.0"
+  }
+}
