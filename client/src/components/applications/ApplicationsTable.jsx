@@ -43,11 +43,11 @@ export default function ApplicationsTable({
               Edit
             </button>
 
-            <button
-              className="delete-btn"
-              onClick={() => handleDelete(application.id)}
+           <button
+            className="delete-btn"
+            onClick={() => onDelete(application.id)}
             >
-              Delete
+            Delete
             </button>
           </div>
         </td>
