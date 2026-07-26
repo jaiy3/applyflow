@@ -1,3 +1,17 @@
+import {
+  FiBriefcase,
+  FiActivity,
+  FiTrendingUp,
+  FiAward,
+} from "react-icons/fi";
+
+const icons = {
+  Applications: <FiBriefcase />,
+  Active: <FiActivity />,
+  "Response Rate": <FiTrendingUp />,
+  "Offer Rate": <FiAward />,
+};
+
 export default function StatsCard({
   title,
   value,
@@ -5,7 +19,13 @@ export default function StatsCard({
 }) {
   return (
     <div className="stats-card">
-      <h3>{title}</h3>
+      <div className="stats-card-header">
+        <div className="stats-icon">
+          {icons[title]}
+        </div>
+
+        <h3>{title}</h3>
+      </div>
 
       <h2>{value}</h2>
 

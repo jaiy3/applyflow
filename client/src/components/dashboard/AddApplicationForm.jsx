@@ -3,6 +3,7 @@ import {
   createApplication,
   updateApplication,
 } from "../../services/applicationService";
+import toast from "react-hot-toast";
 
 export default function AddApplicationForm({
   onApplicationCreated,
@@ -11,21 +12,31 @@ export default function AddApplicationForm({
   onEditComplete,
 }) {
 
-    const [formData, setFormData] = useState({
-  company: "",
-  jobTitle: "",
-  status: "SAVED",
-  dateApplied: "",
+  const [formData, setFormData] = useState({
+    company: "",
+    jobTitle: "",
+    status: "SAVED",
+    dateApplied: "",
+    deadline: "",
+    jobUrl: "",
+    notes: "",
 });
 
     useEffect(() => {
   if (editingApplication) {
     setFormData({
-      company: editingApplication.company,
-      jobTitle: editingApplication.jobTitle,
-      status: editingApplication.status,
-      dateApplied: editingApplication.dateApplied || "",
-  });
+      company: editingApplication.company || "",
+      jobTitle: editingApplication.jobTitle || "",
+      status: editingApplication.status || "SAVED",
+      dateApplied: editingApplication.dateApplied
+        ? editingApplication.dateApplied.slice(0, 10)
+        : "",
+      deadline: editingApplication.deadline
+        ? editingApplication.deadline.slice(0, 10)
+        : "",
+      jobUrl: editingApplication.jobUrl || "",
+      notes: editingApplication.notes || "",
+    });
   }
 }, [editingApplication]);
 
@@ -50,20 +61,24 @@ export default function AddApplicationForm({
         await onApplicationCreated();
       }
 
-      setFormData({
-  company: "",
-  jobTitle: "",
-  status: "SAVED",
-});
+  setFormData({
+    company: "",
+    jobTitle: "",
+    status: "SAVED",
+    dateApplied: "",
+    deadline: "",
+    jobUrl: "",
+    notes: "",
+  });
 
 if (editingApplication && onEditComplete) {
   onEditComplete();
 }
 
-alert(
+toast.success(
   editingApplication
-    ? "Application updated!"
-    : "Application created!"
+    ? "Application updated successfully!"
+    : "Application created successfully!"
 );
 
 if (onClose) {
@@ -74,14 +89,12 @@ if (onClose) {
 
         const response = error.response?.data;
 
-        if (response?.errors) {
-          const messages = response.errors
-            .map((err) => err.message)
-            .join("\n");
-
-          alert(messages);
+       if (response?.errors) {
+          response.errors.forEach((err) => {
+            toast.error(err.message);
+          });
         } else {
-          alert(response?.message || "Something went wrong.");
+          toast.error(response?.message || "Something went wrong.");
         }
       }
 };
@@ -145,6 +158,45 @@ if (onClose) {
     value={formData.dateApplied}
     onChange={handleChange}
   />
+
+  <div className="form-group">
+  <label htmlFor="deadline">Application Deadline</label>
+
+  <input
+    id="deadline"
+    name="deadline"
+    type="date"
+    value={formData.deadline}
+    onChange={handleChange}
+  />
+</div>
+
+<div className="form-group">
+  <label htmlFor="jobUrl">Job URL</label>
+
+  <input
+    id="jobUrl"
+    name="jobUrl"
+    type="url"
+    placeholder="https://company.com/jobs/123"
+    value={formData.jobUrl}
+    onChange={handleChange}
+  />
+</div>
+
+<div className="form-group">
+  <label htmlFor="notes">Notes</label>
+
+  <textarea
+    id="notes"
+    name="notes"
+    rows="4"
+    placeholder="Interview notes, recruiter details, follow-up reminders..."
+    value={formData.notes}
+    onChange={handleChange}
+  />
+</div>
+
 </div>
 
         <div className="form-buttons">

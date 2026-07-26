@@ -2,11 +2,7 @@ import bcrypt from "bcryptjs";
 
 import prisma from "../utils/prisma.js";
 import asyncHandler from "../utils/asyncHandler.js";
-import {
-  clearAuthCookie,
-  createAuthToken,
-  sendAuthCookie,
-} from "../utils/authToken.js";
+import { createAuthToken } from "../utils/authToken.js";
 
 const publicUserFields = {
   id: true,
@@ -49,8 +45,6 @@ export const register = asyncHandler(async (req, res) => {
 
   const token = createAuthToken(user.id);
 
-  sendAuthCookie(res, token);
-
   res.status(201).json({
     success: true,
     message: "Your ApplyFlow account was created successfully.",
@@ -91,8 +85,6 @@ export const login = asyncHandler(async (req, res) => {
 
   const token = createAuthToken(userWithPassword.id);
 
-  sendAuthCookie(res, token);
-
   const user = {
     id: userWithPassword.id,
     firstName: userWithPassword.firstName,
@@ -111,8 +103,6 @@ export const login = asyncHandler(async (req, res) => {
 });
 
 export const logout = asyncHandler(async (req, res) => {
-  clearAuthCookie(res);
-
   res.status(200).json({
     success: true,
     message: "You have logged out successfully.",

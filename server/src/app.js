@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-import cookieParser from "cookie-parser";
 
 import authRoutes from "./routes/authRoutes.js";
 import applicationRoutes from "./routes/applicationRoutes.js";
@@ -29,9 +28,7 @@ app.use(
     extended: true,
     limit: "10kb",
   })
-);
-
-app.use(cookieParser());
+                          );
 
 app.get("/", (req, res) => {
   res.status(200).json({
